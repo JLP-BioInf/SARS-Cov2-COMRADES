@@ -743,6 +743,77 @@ printClustersFast = function(dir, clustering, highest_clusters, left, right ){
 
 
 
+#' Plots a viewpoint of a specific region
+#'
+#' Takes a region of the genome and shows on a plot
+#' where else that region interacts with 
+#' @param  hybListSwapSars the output of swapHybs2 only
+#' @param  startofChoice start of region of interest
+#' @param  endofChoice The cluster you are interested in keeping
+#' @param  directory where the plot should be created
+#' @authors Jonathan Price
+#' @examples 
+#'     plotviewpoint(hybListSwapSars, 1, 100 , /path/to/plot/)
+#' @export
+
+
+
+
+
+plotviewpoint = function(hybListSwapSars,startofChoice,endofChoice, directory ){
+  
+ 
+  
+  a = list()
+  a[["control"]] = c(1,3)
+  a[["sample"]] = c(2,4)
+  
+  
+  df2 = data.frame(stringsAsFactors = F)
+  for( i in 1:2){
+    #rbind the sample
+    hybListSwapSarsSample = rbind.data.frame(hybListSwapSars[[a[[i]][1]]],
+                                             hybListSwapSars[[a[[i]][2]]], stringsAsFactors = F)
+    
+    hybListSwapSarsSampleRegion1 = hybListSwapSarsSample[((hybListSwapSarsSample$V7 < endofChoice & hybListSwapSarsSample$V7 > startofChoice) |
+                                                            (hybListSwapSarsSample$V8 < endofChoice & hybListSwapSarsSample$V8 > startofChoice)|
+                                                            (hybListSwapSarsSample$V8 > endofChoice & hybListSwapSarsSample$V7 < startofChoice)),]
+    
+    hybListSwapSarsSampleRegion2 = hybListSwapSarsSample[((hybListSwapSarsSample$V13 < endofChoice & hybListSwapSarsSample$V13 > startofChoice) |
+                                                            (hybListSwapSarsSample$V14 < endofChoice & hybListSwapSarsSample$V14 > startofChoice)|
+                                                            (hybListSwapSarsSample$V14 > endofChoice & hybListSwapSarsSample$V13 < startofChoice) ) , ]
+    
+
+    seq2 <- Vectorize(seq.default, vectorize.args = c("from", "to"))
+    
+    
+    
+    df = as.data.frame(table(unlist(seq2(from = c(hybListSwapSarsSampleRegion1$V13, hybListSwapSarsSampleRegion2$V7), to = c(hybListSwapSarsSampleRegion1$V14, hybListSwapSarsSampleRegion2$V8)))))
+    
+    df = df[as.numeric(as.character(df$Var1)) < startofChoice | as.numeric(as.character(df$Var1)) > endofChoice,]
+    
+    df$sample = names(a)[i]
+    df2 = rbind.data.frame(df,df2, stringsAsFactors = F)
+  }
+  ggplot()+geom_line(data = df2,aes(x =as.numeric(as.character(Var1)), y = as.numeric(as.character(Freq)) ))+
+    facet_grid(sample ~ . )+
+    theme_classic()
+  
+  
+  tail(df2[which(df2$Freq >300),],n = 100)
+  
+  pdf(paste(directory,startofChoice,"_",endofChoice,".pdf",sep = ""), height = 2.5, width = 8)
+  ggplot()+geom_bar(data = df2,aes(x =as.numeric(as.character(Var1)), 
+                                   y = as.numeric(as.character(Freq)) ),
+                    stat = "identity")+
+    facet_grid(sample~.)+
+    theme_classic()
+  
+  dev.off()
+  
+  
+}
+
 
 
 
