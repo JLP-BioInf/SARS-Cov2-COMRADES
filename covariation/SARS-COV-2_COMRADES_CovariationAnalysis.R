@@ -1,3 +1,4 @@
+# Author -  Tsveta Kamenova
 # STEP-BY-STEP GUIDE TO SARS-COV-2 COMRADES CLUSTER COVARIATION ANALYSIS
 
 library(Bios2cor)
