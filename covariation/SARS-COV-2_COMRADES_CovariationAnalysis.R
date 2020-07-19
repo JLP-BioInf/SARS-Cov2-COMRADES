@@ -390,6 +390,7 @@ Rscape.create.regions <- function(myAlignment, regionsCSV, guideCSV, destination
 #     guideCSV                  output of Step 3.: a guide .csv file with the nucleotide positions in the aligned 
 #                               reference sequences and their corresponding positions in the non-aligned reference sequence.
 #                               Also used in Step 4. for generation of the alignment segments.
+#                                
 #     segmentAddresses          the segment addresses.csv generated in Step 4.
 #     destinationFolder         filepath to the folder where the output files will be directed
 #     newfilename               common identifier name for the output files
