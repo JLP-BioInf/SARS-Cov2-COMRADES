@@ -1,3 +1,4 @@
+# Author - Tsveta Kamenova
 # This file provides the pipeline used for the R-Scape (Rivas et al., 2017) analysis of the alignment segments corresponding to COMRADES chimera clusters
 # R-Scape and R-Scape user guide can be downloaded from:     http://eddylab.org/R-scape/
 # See R script for details on alignment segment file generation
