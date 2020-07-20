@@ -821,3 +821,58 @@ plotviewpoint = function(hybListSwapSars,startofChoice,endofChoice, directory ){
 
 
 
+
+
+#' Extracts chimeric reads for host interactions
+#'
+#' Extracts chimeric reads for host interactions
+#' @param  TE This is the RNA of interest
+#' @param  feature this is the host RNA of interest
+#' @param  sampleData This is some hyb data created with readHybFiles or similar
+#' @return a vector of interactions along the genome
+#' @authors Jonathan Price
+#' @examples 
+#'          sampleVect = getVectorofInteractions(TE, feature, hybListMers[["sample"]])
+#' @export
+
+
+
+
+
+
+getVectorofInteractions = function(TE, feature, sampleData){
+  sampleData = sampleData[sampleData$V10 == TE & sampleData$V4 == feature | sampleData$V10 == feature & sampleData$V4 == TE,]
+  
+  print(paste("doing ",TE,"and",feature))
+  
+  print("swapping")
+  print(nrow(sampleData))
+  if(nrow(sampleData) > 0){
+    #extract the right columns
+    sampleData = sampleData[,c(4,7,8,10,13,14)]
+    #now swap the columns over 
+    #now make sure the TE is in column 1.
+    
+    
+    
+    #Swap the columns around that do not have zika in column 2 
+    sampleDatatmp1 = sampleData[sampleData$V4 == TE,]
+    sampleDatatmp2 = sampleData[!(sampleData$V4 == TE),]
+    sampleDatatmp2 = as.data.frame(cbind(as.character(sampleDatatmp2$V10), sampleDatatmp2$V13, sampleDatatmp2$V14, as.character(sampleDatatmp2$V4), sampleDatatmp2$V7, sampleDatatmp2$V8),stringsAsFactors = F)
+    colnames(sampleDatatmp2) = c("V4","V7","V8","V10","V13","V14")
+    sampleData = rbind.data.frame(sampleDatatmp1, sampleDatatmp2)
+    
+    #sampleData  = sampleData[sampleData$V14 > 35,]
+    
+    
+    print("making vector")
+    vect = c()
+    for(i in 1:nrow(sampleData)){
+      print(i)
+      vect = c(vect,seq(as.numeric(sampleData$V7[i]) , as.numeric(sampleData$V8[i])))
+      
+    }
+    return(as.data.frame(table(vect)))
+  }
+  
+}
