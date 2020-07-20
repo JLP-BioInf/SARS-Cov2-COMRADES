@@ -14,6 +14,7 @@
 #' @param x 
 #' @param newrange
 #' @examples 
+#' @author Unknown
 #' loc[,1] = rescale(ncord[,1], c(1,odim[1]))
 #' @export
  
@@ -31,6 +32,7 @@ rescale <- function(x, newrange=range(x)){
 #' @param ndim The dimensions to re-size to c(10,10)
 #' @return The resized matrix
 #' @examples 
+#' @author Unknown
 #' ResizedMat <- ResizeMat(mat, c(10000),c(10000));
 #' @export
 
