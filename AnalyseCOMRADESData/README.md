@@ -6,5 +6,5 @@
  
 ## Other R files
 
-These are specific and can be used to re-create the analyis performed in the publication entitled above.
+These are specific to this project and can be used to re-create the analyis performed in the publication entitled above. 
 
