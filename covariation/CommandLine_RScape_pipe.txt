@@ -1,0 +1,14 @@
+# This file provides the pipeline used for the R-Scape (Rivas et al., 2017) analysis of the alignment segments corresponding to COMRADES chimera clusters
+# R-Scape and R-Scape user guide can be downloaded from:     http://eddylab.org/R-scape/
+# See R script for details on alignment segment file generation
+# Navigate to a destination folder where the results will be stored
+# R-Scape requires Stockholm format (.stockholm, .sto) file input to run. Fasta files can converted to Stockholm format using the perl script in the gappedFastaToStockholm.pl file (included).
+
+
+# Create a .txt file to store all results
+touch [name_of_full_results_file].txt
+
+for i in [path_to_for_rscape_folder]*.fasta ; do perl [path_to_gappedFastaToStockholm.pl] ${i} | sed 's/-/./g' > ${i%.fasta}_DOTS.sto ; [path_to_R-Scape_script] ${i%.fasta}_DOTS.sto > ${i%.fasta}_newfile.txt ; cat [name_of_full_results_file].txt ${i%.fasta}_newfile.txt > newfile123.txt ; mv newfile123.txt [name_of_full_results_file].txt ; done
+
+
+# Further analysis of the R-Scape results is described in the R script.
