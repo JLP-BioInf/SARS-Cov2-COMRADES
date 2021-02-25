@@ -1,8 +1,6 @@
-# SARS-Cov2-COMRADES
+# IMPORTANT - Updates are now located at https://github.com/JLP-BioInf/comradesOO
 
-This is an ongoing development and will be updated soon. More things to come. 
 
-This repository contains code pertaining to the project entitled 'The short- and long-range RNA Interactome of SARS-CoV-2'. Data for this project is available under GEO (GSE154662 - https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE154662). This code will allow complete reproducibility of the analysis and allow analysis of other COMRADES data-sets. Please feel free to contact 
 
 
 ## Interactive Data Exploration
